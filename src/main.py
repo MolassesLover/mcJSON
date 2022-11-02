@@ -1,8 +1,11 @@
 # region Modules
 
 import argparse
+import colorama
+from colorama import Fore
 import subprocess
 import os
+import sys
 
 # endregion
 
@@ -14,28 +17,29 @@ def main():
     argumentParser = argparse.ArgumentParser()
     argumentParser.add_argument("--namespace", type=str)
     argumentParser.add_argument("--source_block", type=str)
+    argumentParser.add_argument("--print_output", action="store_true")
     arguments = argumentParser.parse_args()
 
     jsonPath: str = "json"
 
-    # Open each `.json` file in the `json/` directory
-    for root, dirs, files in os.walk(jsonPath):
-        for file in files:
-            if file.lower().endswith("json".lower()):
-                # Find and replace the $NAMESPACE and $SOURCE_BLOCK variables
-                with open(os.path.join(root, file), "r") as newFile:
-                    filedata = newFile.read()
+    try:
+        # Open each `.json` file in the `json/` directory
+        for root, dirs, files in os.walk(jsonPath):
+            for file in files:
+                if file.lower().endswith("json".lower()):
+                    # Find and replace the $NAMESPACE and $SOURCE_BLOCK variables
+                    with open(os.path.join(root, file), "r") as newFile:
+                        filedata = newFile.read()
 
-                filedata = filedata.replace("$NAMESPACE", arguments.namespace)
-                filedata = filedata.replace("$SOURCE_BLOCK", arguments.source_block)
-                print(filedata)
+                    filedata = filedata.replace("$NAMESPACE", arguments.namespace)
+                    filedata = filedata.replace("$SOURCE_BLOCK", arguments.source_block)
 
-    # Save the generated string as a new `.json` file...
-    # ... with the appropriate file prefix...
-    # I.E $SOURCE_BLOCK, generating...
-    # ... $SOURCE_BLOCK_block.json.
+                if arguments.print_output:
+                    print(f"{Fore.YELLOW}{file}{Fore.RESET}:\n{filedata}\n")
 
-    pass
+    # Ignore keyboard interruption
+    except KeyboardInterrupt():
+        pass
 
 
 # endregion
