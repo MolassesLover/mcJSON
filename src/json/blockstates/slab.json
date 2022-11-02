@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "$NAMESPACE:block/$SOURCE_BLOCK_slab"
+        },
+        "type=double": {
+            "model": "$NAMESPACE:block/$SOURCE_BLOCK"
+        },
+        "type=top": {
+            "model": "$NAMESPACE:block/$SOURCE_BLOCK_slab_top"
+        }
+    }
+}
