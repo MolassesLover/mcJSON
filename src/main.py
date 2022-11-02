@@ -23,22 +23,31 @@ def main():
     jsonPath: str = "json"
 
     try:
+        if not os.path.exists("../generated"):
+            os.mkdir("../generated")
+
         # Open each `.json` file in the `json/` directory
         for root, dirs, files in os.walk(jsonPath):
+            if not os.path.exists(f"../generated/{root}"):
+                os.mkdir(f"../generated/{root}")
+
             for file in files:
                 if file.lower().endswith("json".lower()):
                     # Find and replace the $NAMESPACE and $SOURCE_BLOCK variables
                     with open(os.path.join(root, file), "r") as newFile:
-                        filedata = newFile.read()
+                        fileData = newFile.read()
 
-                    filedata = filedata.replace("$NAMESPACE", arguments.namespace)
-                    filedata = filedata.replace("$SOURCE_BLOCK", arguments.source_block)
+                    fileData = fileData.replace("$NAMESPACE", arguments.namespace)
+                    fileData = fileData.replace("$SOURCE_BLOCK", arguments.source_block)
 
                 if arguments.print_output:
-                    print(f"{Fore.YELLOW}{file}{Fore.RESET}:\n{filedata}\n")
+                    print(f"{Fore.YELLOW}{file}{Fore.RESET}:\n{fileData}\n")
+
+                with open(f"../generated/{os.path.join(root, file), 'w'}") as newGeneratedFile:
+                    newGeneratedFile.write(fileData)
 
     # Ignore keyboard interruption
-    except KeyboardInterrupt():
+    except KeyboardInterrupt:
         pass
 
 
