@@ -43,7 +43,11 @@ def main():
                 if arguments.print_output:
                     print(f"{Fore.YELLOW}{file}{Fore.RESET}:\n{fileData}\n")
 
-                with open(f"../generated/{os.path.join(root, file), 'w'}") as newGeneratedFile:
+                fileDestination = f"{arguments.source_block}_{file}"
+
+                with open(
+                    f"../generated/{os.path.join(root, fileDestination)}", "w"
+                ) as newGeneratedFile:
                     newGeneratedFile.write(fileData)
 
     # Ignore keyboard interruption
