@@ -18,18 +18,21 @@ def main():
     argumentParser.add_argument("--namespace", type=str)
     argumentParser.add_argument("--source_block", type=str)
     argumentParser.add_argument("--print_output", action="store_true")
+    argumentParser.add_argument("--no_writing", action="store_true")
     arguments = argumentParser.parse_args()
 
     jsonPath: str = "json"
 
     try:
-        if not os.path.exists("../generated"):
-            os.mkdir("../generated")
+        if not arguments.no_writing:
+            if not os.path.exists("../generated"):
+                os.mkdir("../generated")
 
         # Open each `.json` file in the `json/` directory
         for root, dirs, files in os.walk(jsonPath):
-            if not os.path.exists(f"../generated/{root}"):
-                os.mkdir(f"../generated/{root}")
+            if not arguments.no_writing:
+                if not os.path.exists(f"../generated/{root}"):
+                    os.mkdir(f"../generated/{root}")
 
             for file in files:
                 if file.lower().endswith("json".lower()):
@@ -45,10 +48,11 @@ def main():
 
                 fileDestination = f"{arguments.source_block}_{file}"
 
-                with open(
-                    f"../generated/{os.path.join(root, fileDestination)}", "w"
-                ) as newGeneratedFile:
-                    newGeneratedFile.write(fileData)
+                if not arguments.no_writing:
+                    with open(
+                        f"../generated/{os.path.join(root, fileDestination)}", "w"
+                    ) as newGeneratedFile:
+                        newGeneratedFile.write(fileData)
 
     # Ignore keyboard interruption
     except KeyboardInterrupt:
