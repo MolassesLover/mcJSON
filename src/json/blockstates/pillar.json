@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "$NAMESPACE:block/$SOURCE_BLOCK_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "$NAMESPACE:block/$SOURCE_BLOCK"
+    },
+    "axis=z": {
+      "model": "$NAMESPACE:block/$SOURCE_BLOCK_horizontal",
+      "x": 90
+    }
+  }
+}
