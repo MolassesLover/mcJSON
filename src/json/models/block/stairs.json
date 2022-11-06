@@ -1,8 +1,8 @@
 {
-    "parent": "minecraft:block/stairs",
-    "textures": {
-        "bottom": "$NAMESPACE:block/$SOURCE_BLOCK",
-        "side": "$NAMESPACE:block/$SOURCE_BLOCK",
-        "top": "$NAMESPACE:block/$SOURCE_BLOCK"
-    }
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "$NAMESPACE:block/$SOURCE_BLOCK",
+    "side": "$NAMESPACE:block/$SOURCE_BLOCK",
+    "top": "$NAMESPACE:block/$SOURCE_BLOCK"
+  }
 }
